@@ -14,6 +14,16 @@ map.addControl(new mapboxgl.NavigationControl());
 
 
 map.on('load', function () {
+    // Ensure that the info-icon event listener is added after the map has fully loaded
+     document.getElementById('info-icon').addEventListener('click', function() {
+        var infoPanel = document.getElementById('info-panel');
+        if (infoPanel.style.display === 'none' || infoPanel.style.display === '') {
+            infoPanel.style.display = 'block';  // Show the panel
+        } else {
+            infoPanel.style.display = 'none';  // Hide the panel
+        }
+    });
+    
     // Load the GeoJSON file for congressional districts with representative names
     map.addSource('districts', {
         type: 'geojson',
