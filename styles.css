@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Mapbox style */
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Atlas title top center */
+.css-atlas-title {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+}
+
+
+/* Legend bottom left */
+#legend {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    width: 240px;
+}
+
+.color-bar {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to right, #e6e6e5, #f8e0de, #f5c6c2, #eea3b6, #e770a1, #9c335d);
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.color-description {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 10px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Information icon top left for methodology */
+#info-icon:hover {
+    opacity: 0.8;
+}
+
+#info-panel {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    max-height: 800px; /* Maximum height of the panel */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+    font-size: calc(10px + 0.5vw); /* Responsive font size */
+    overflow-y: auto; /* Enables vertical scrolling if content is too tall */
+}
+
+
+ /* Custom header and link colors */
+h3 {
+    color: #e770a1; 
+}
+
+a:link, a:visited {
+    color: #e770a1;
+}
+
+a:hover, a:active {
+    color: #9c335d;
+}
