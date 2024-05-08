@@ -6,7 +6,7 @@ const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/j00by/clvx7jcp006zv01ph3miketyz',
     center: [-97.97919, 40.00215],
-    zoom: initialZoom  // Use the dynamic zoom level based on device type
+    zoom: initialZoom
 });
 
 // Add zoom and rotation controls to the map.
@@ -113,36 +113,52 @@ map.on('load', function () {
     // When a user clicks on a district, show a popup with contact information
     map.on('click', function (e) {
         var features = map.queryRenderedFeatures(e.point, { layers: ['districts-layer', 'counties-layer'] });
-        var featureHTML = '';
-
+        var districtInfo = '';
+        var countyInfo = '';
+        var seenDistricts = {}; // Object to track seen district entries
+        var seenCounties = {}; // Object to track seen county entries
+    
         features.forEach(function (feature) {
             if (feature.layer.id === 'districts-layer') {
                 const props = feature.properties;
-                featureHTML += `
-                    <div style="min-width: 200px;">
-                    <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
-                        <p><strong>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</strong></p>
-                        <p><strong>${props.NAMELSAD20}</strong></p>
-                        <p><a href="${props.WEBSITEURL}" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
-                           <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
-                           <a href="${props.TWITTER_URL}" target="_blank"><img src="img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
-                           <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
-                        </p>
-                    </div>
-                `;
+                const districtId = props.FIRSTNAME + props.LASTNAME; // Unique identifier for district entries
+                if (!seenDistricts[districtId]) {
+                    seenDistricts[districtId] = true;
+                    districtInfo += `
+                        <div style="min-width: 200px;">
+                            <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
+                            <p><strong>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</strong></p>
+                            <p><strong>${props.NAMELSAD20}</strong></p>
+                            <p><a href="${props.WEBSITEURL}" target="_blank"><img src="/img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
+                               <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="/img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
+                               <a href="${props.TWITTER_URL}" target="_blank"><img src="/img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
+                               <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="/img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
+                            </p>
+                        </div>
+                    `;
+                }
             } else if (feature.layer.id === 'counties-layer') {
                 const props = feature.properties;
-                featureHTML += `
-                <h4 style="border-bottom: 2px solid #a50f15; padding-bottom: 5px;">${props.NAME} County has been affected by a total of ${props.FEMA_TOTAL_FEMA_DISASTERS} disasters declared by FEMA.</h4>
-                `;
+                const countyId = props.NAME; // Unique identifier for county entries
+                if (!seenCounties[countyId]) {
+                    seenCounties[countyId] = true;
+                    countyInfo += `
+                        <h4 style="border-bottom: 2px solid #a50f15; padding-bottom: 5px;">${props.NAME} County has been affected by a total of ${props.FEMA_TOTAL_FEMA_DISASTERS} disasters declared by FEMA.</h4>
+                    `;
+                }
             }
         });
-
+    
+        // Combine the info with county information on top
+        var featureHTML = countyInfo + districtInfo;
+    
         // Display popup at the clicked location
         popup.setLngLat(e.lngLat)
             .setHTML(featureHTML)
             .addTo(map);
     });
+    
+    
 
     // Update mouse settings to change on enter and leave of any interactive layer
     ['districts-layer', 'counties-layer'].forEach(function (layer) {
