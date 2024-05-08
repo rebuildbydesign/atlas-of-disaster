@@ -114,11 +114,13 @@ h3 {
 a:link,
 a:visited {
     color: #a50f15;
+    text-decoration: none;
 }
 
 a:hover,
 a:active {
-    color: #a50f15;
+    color: #fcae91;
+    text-decoration: none;
 }
 
 
