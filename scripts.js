@@ -113,6 +113,19 @@ map.on('load', function () {
         map.moveLayer(stateLabelLayerId);
     }
 
+
+
+
+
+
+    // When a user clicks on a district, show a popup with contact information
+    // Initialize the popup globally if it needs to be accessed by different layers
+    var popup = new mapboxgl.Popup({
+        closeButton: true,
+        closeOnClick: true
+    });
+
+
     // Add state label for respective State FIPS numeric code for popup addition
     const stateFipsMapping = {
         '01': 'Alabama', '02': 'Alaska', '04': 'Arizona', '05': 'Arkansas', '06': 'California',
@@ -134,15 +147,6 @@ map.on('load', function () {
         '95': 'Palmyra Atoll', '79': 'Wake Island'
     };
 
-
-
-    // When a user clicks on a district, show a popup with contact information
-    // Initialize the popup globally if it needs to be accessed by different layers
-    var popup = new mapboxgl.Popup({
-        closeButton: true,
-        closeOnClick: true
-    });
-
     // When a user clicks on a district, show a popup with contact information
     map.on('click', function (e) {
         var features = map.queryRenderedFeatures(e.point, { layers: ['districts-layer', 'counties-layer'] });
@@ -160,7 +164,7 @@ map.on('load', function () {
                     districtInfo += `
                         <div style="min-width: 200px">
                         <p><strong>${props.NAMELSAD20}</strong></p>
-                        <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; display: block; align: left;">
+                        <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: block; align: left;">
                         <p style="font-weight: bold; color: #a50f15">Congress Representative</p>
                         <p>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</p> 
                             <p><a href="${props.WEBSITEURL}" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
