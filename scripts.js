@@ -15,7 +15,7 @@ map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', function () {
     // Ensure that the info-icon event listener is added after the map has fully loaded
-     document.getElementById('info-icon').addEventListener('click', function() {
+    document.getElementById('info-icon').addEventListener('click', function () {
         var infoPanel = document.getElementById('info-panel');
         if (infoPanel.style.display === 'none' || infoPanel.style.display === '') {
             infoPanel.style.display = 'block';  // Show the panel
@@ -23,7 +23,7 @@ map.on('load', function () {
             infoPanel.style.display = 'none';  // Hide the panel
         }
     });
-    
+
     // Load the GeoJSON file for counties and fema declaration count
     map.addSource('counties', {
         type: 'geojson',
@@ -60,7 +60,7 @@ map.on('load', function () {
             'fill-opacity': 0.9
         }
     }, 'state-label');
-    
+
 
 
     // Load the GeoJSON file for congressional districts with representative names
@@ -93,15 +93,15 @@ map.on('load', function () {
     }, 'state-label');
 
 
-  // Move the state labels layer to the top to ensure it is on top of all custom layers
-  const stateLabelLayerId = 'state-label';
-  if (map.getLayer(stateLabelLayerId)) {
-      map.moveLayer(stateLabelLayerId);
-  }
+    // Move the state labels layer to the top to ensure it is on top of all custom layers
+    const stateLabelLayerId = 'state-label';
+    if (map.getLayer(stateLabelLayerId)) {
+        map.moveLayer(stateLabelLayerId);
+    }
 
 
 
-  
+
 
     // When a user clicks on a district, show a popup with contact information
     // Initialize the popup globally if it needs to be accessed by different layers
@@ -117,7 +117,7 @@ map.on('load', function () {
         var countyInfo = '';
         var seenDistricts = {}; // Object to track seen district entries
         var seenCounties = {}; // Object to track seen county entries
-    
+
         features.forEach(function (feature) {
             if (feature.layer.id === 'districts-layer') {
                 const props = feature.properties;
@@ -148,17 +148,17 @@ map.on('load', function () {
                 }
             }
         });
-    
+
         // Combine the info with county information on top
         var featureHTML = countyInfo + districtInfo;
-    
+
         // Display popup at the clicked location
         popup.setLngLat(e.lngLat)
             .setHTML(featureHTML)
             .addTo(map);
     });
-    
-    
+
+
 
     // Update mouse settings to change on enter and leave of any interactive layer
     ['districts-layer', 'counties-layer'].forEach(function (layer) {
@@ -176,7 +176,7 @@ map.on('load', function () {
     document.getElementById('toggle-counties').addEventListener('click', function () {
         // Get the current visibility state of the counties-layer
         var visibility = map.getLayoutProperty('counties-layer', 'visibility');
-    
+
         // Toggle the visibility based on the current state
         if (visibility === 'visible' || visibility === undefined) {
             // If visible, or undefined (not yet set), hide it
@@ -188,7 +188,21 @@ map.on('load', function () {
             this.textContent = 'Hide Counties Layer'; // Update button text to hide
         }
     });
-    
+
+
+
+    // HIDE TITLE IF USING AN IFRAME FOR WORDPRESS
+    document.addEventListener("DOMContentLoaded", function () {
+        if (window.location !== window.parent.location) {
+            // The page is in an iframe
+            var titleElement = document.querySelector('.css-atlas-title');
+            if (titleElement) {
+                titleElement.style.display = 'none';
+            }
+        } else {
+            // The page is not in an iframe, do nothing
+        }
+    });
 
 
 });
