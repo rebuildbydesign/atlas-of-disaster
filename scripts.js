@@ -24,35 +24,6 @@ map.on('load', function () {
         }
     });
     
-    // Load the GeoJSON file for congressional districts with representative names
-    map.addSource('districts', {
-        type: 'geojson',
-        data: 'data/US_Districts.json'
-    });
-
-    // Add a layer for districts
-    map.addLayer({
-        'id': 'districts-layer',
-        'type': 'fill',
-        'source': 'districts',
-        'paint': {
-            'fill-color': 'transparent', // No fill color
-            'fill-outline-color': '#000' // Black border color
-        }
-    });
-
-    // Line layer specifically for district borders
-    map.addLayer({
-        'id': 'districts-border',
-        'type': 'line',
-        'source': 'districts',
-        'layout': {},
-        'paint': {
-            'line-color': '#000', // Black border color
-            'line-width': 1 // Border width set to 1px
-        }
-    });
-
     // Load the GeoJSON file for counties and fema declaration count
     map.addSource('counties', {
         type: 'geojson',
@@ -90,6 +61,38 @@ map.on('load', function () {
         }
     });
     
+
+
+    // Load the GeoJSON file for congressional districts with representative names
+    map.addSource('districts', {
+        type: 'geojson',
+        data: 'data/US_Districts.json'
+    });
+
+    // Add a layer for districts
+    map.addLayer({
+        'id': 'districts-layer',
+        'type': 'fill',
+        'source': 'districts',
+        'paint': {
+            'fill-color': 'transparent', // No fill color
+            'fill-outline-color': '#000' // Black border color
+        }
+    });
+
+    // Line layer specifically for district borders
+    map.addLayer({
+        'id': 'districts-border',
+        'type': 'line',
+        'source': 'districts',
+        'layout': {},
+        'paint': {
+            'line-color': '#000', // Black border color
+            'line-width': 1 // Border width set to 1px
+        }
+    });
+
+
 
 
     // When a user clicks on a district, show a popup with contact information
