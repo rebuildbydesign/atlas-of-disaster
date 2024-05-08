@@ -1,4 +1,18 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiajAwYnkiLCJhIjoiY2x1bHUzbXZnMGhuczJxcG83YXY4czJ3ayJ9.S5PZpU9VDwLMjoX_0x5FDQ';
+
+// HIDE TITLE IF USING AN IFRAME FOR WORDPRESS
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.location !== window.parent.location) {
+        // The page is in an iframe
+        var titleElement = document.querySelector('.css-atlas-title');
+        if (titleElement) {
+            titleElement.style.display = 'none';
+        }
+    } else {
+        // The page is not in an iframe, do nothing
+    }
+});
+
 // Determine the initial zoom level based on the screen width
 const initialZoom = window.innerWidth < 768 ? 3 : 4;  // Zoom level 3 for mobile, 4 for desktop
 
@@ -99,7 +113,26 @@ map.on('load', function () {
         map.moveLayer(stateLabelLayerId);
     }
 
-
+    // Add state label for respective State FIPS numeric code for popup addition
+    const stateFipsMapping = {
+        '01': 'Alabama', '02': 'Alaska', '04': 'Arizona', '05': 'Arkansas', '06': 'California',
+        '08': 'Colorado', '09': 'Connecticut', '10': 'Delaware', '11': 'District of Columbia',
+        '12': 'Florida', '13': 'Georgia', '15': 'Hawaii', '16': 'Idaho', '17': 'Illinois',
+        '18': 'Indiana', '19': 'Iowa', '20': 'Kansas', '21': 'Kentucky', '22': 'Louisiana',
+        '23': 'Maine', '24': 'Maryland', '25': 'Massachusetts', '26': 'Michigan', '27': 'Minnesota',
+        '28': 'Mississippi', '29': 'Missouri', '30': 'Montana', '31': 'Nebraska', '32': 'Nevada',
+        '33': 'New Hampshire', '34': 'New Jersey', '35': 'New Mexico', '36': 'New York',
+        '37': 'North Carolina', '38': 'North Dakota', '39': 'Ohio', '40': 'Oklahoma', '41': 'Oregon',
+        '42': 'Pennsylvania', '44': 'Rhode Island', '45': 'South Carolina', '46': 'South Dakota',
+        '47': 'Tennessee', '48': 'Texas', '49': 'Utah', '50': 'Vermont', '51': 'Virginia',
+        '53': 'Washington', '54': 'West Virginia', '55': 'Wisconsin', '56': 'Wyoming',
+        '60': 'American Samoa', '64': 'Federated States of Micronesia', '66': 'Guam',
+        '68': 'Marshall Islands', '69': 'Northern Mariana Islands', '70': 'Palau',
+        '72': 'Puerto Rico', '74': 'U.S. Minor Outlying Islands', '78': 'U.S. Virgin Islands',
+        '81': 'Baker Island', '84': 'Howland Island', '86': 'Jarvis Island',
+        '67': 'Johnston Atoll', '89': 'Kingman Reef', '71': 'Midway Islands', '76': 'Navassa Island',
+        '95': 'Palmyra Atoll', '79': 'Wake Island'
+    };
 
 
 
@@ -125,25 +158,36 @@ map.on('load', function () {
                 if (!seenDistricts[districtId]) {
                     seenDistricts[districtId] = true;
                     districtInfo += `
-                        <div style="min-width: 200px;">
-                            <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
-                            <p><strong>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</strong></p>
-                            <p><strong>${props.NAMELSAD20}</strong></p>
+                        <div style="min-width: 200px">
+                        <p><strong>${props.NAMELSAD20}</strong></p>
+                        <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; display: block; align: left;">
+                        <p style="font-weight: bold; color: #a50f15">Congress Representative</p>
+                        <p>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</p> 
                             <p><a href="${props.WEBSITEURL}" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
                                <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
                                <a href="${props.TWITTER_URL}" target="_blank"><img src="img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
                                <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
                             </p>
+                            <hr style="height: 2px; background-color: #fb6a4a; border: none;">
+                            <p style="font-weight: bold; color: #a50f15">State Senator</p>
+                            <p>Name Here (Party)</p>
+                            <p><a href="#" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
+                            <a href="#" target="_blank"><img src="img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
+                            <a href="#" target="_blank"><img src="img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
+                            <a href="#" target="_blank"><img src="img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
+                         </p>
                         </div>
                     `;
                 }
             } else if (feature.layer.id === 'counties-layer') {
                 const props = feature.properties;
                 const countyId = props.NAME; // Unique identifier for county entries
+                const stateName = stateFipsMapping[props.STATEFP]; // Retrieve state name using FIPS code
                 if (!seenCounties[countyId]) {
                     seenCounties[countyId] = true;
                     countyInfo += `
-                        <h4 style="border-bottom: 2px solid #a50f15; padding-bottom: 5px;">${props.NAME} County has been affected by a total of ${props.FEMA_TOTAL_FEMA_DISASTERS} disasters declared by FEMA.</h4>
+                        <h3 style="border-bottom: 2px solid #fb6a4a; padding-bottom: 5px;">${props.NAME} County, ${stateName}</h4>
+                        <p><strong># of Federally Declared Disasters:</strong> ${props.FEMA_TOTAL_FEMA_DISASTERS}
                     `;
                 }
             }
@@ -157,6 +201,7 @@ map.on('load', function () {
             .setHTML(featureHTML)
             .addTo(map);
     });
+
 
 
 
@@ -190,19 +235,6 @@ map.on('load', function () {
     });
 
 
-
-    // HIDE TITLE IF USING AN IFRAME FOR WORDPRESS
-    document.addEventListener("DOMContentLoaded", function () {
-        if (window.location !== window.parent.location) {
-            // The page is in an iframe
-            var titleElement = document.querySelector('.css-atlas-title');
-            if (titleElement) {
-                titleElement.style.display = 'none';
-            }
-        } else {
-            // The page is not in an iframe, do nothing
-        }
-    });
 
 
 });
