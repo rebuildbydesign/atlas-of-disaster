@@ -129,10 +129,10 @@ map.on('load', function () {
                             <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
                             <p><strong>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</strong></p>
                             <p><strong>${props.NAMELSAD20}</strong></p>
-                            <p><a href="${props.WEBSITEURL}" target="_blank"><img src="/img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
-                               <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="/img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
-                               <a href="${props.TWITTER_URL}" target="_blank"><img src="/img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
-                               <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="/img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
+                            <p><a href="${props.WEBSITEURL}" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
+                               <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
+                               <a href="${props.TWITTER_URL}" target="_blank"><img src="img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
+                               <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
                             </p>
                         </div>
                     `;
