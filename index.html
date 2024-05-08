@@ -3,19 +3,19 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Atlas of Disaster - FEMA Declarations (2011-2023)</title>
+    <title>Atlas of Disaster - Mapping the Impact of Federally Declared Disasters from 2011 to 2023</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <!-- LINK TO STYLESHEET -->
-    <link rel="stylesheet" href="https://j00by.github.io/atlas-of-disaster/styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
     <!-- ATLAS OF DISASTER SVG FILE -->
     <div class="css-atlas-title">
-        <img src="https://j00by.github.io/atlas-of-disaster/images/atlas-title-rbd.png" style="width: 250px; height: 88px">
+        <img src="/img/atlas-title-rbd-2.png" style="width: 600px; height: 92px">
     </div>
 
 
@@ -40,10 +40,10 @@
 
     <!-- INFORMATION BOX TOP LEFT WITH METHODOLOGY -->
     <div id="info-icon" style="position: absolute; top: 10px; left: 10px; cursor: pointer; z-index: 1001;">
-        <i class="fas fa-info-circle" style="font-size: 30px; color: #e770a1;"></i>
+        <i class="fas fa-info-circle" style="font-size: 30px; color: #a50f15;"></i>
     </div>
     <div id="info-panel">
-        <img src="https://j00by.github.io/atlas-of-disaster/images/rebuildbydesign.png" style="width: 200px; height: 34px">
+        <img src="/img/rebuildbydesign.png" style="width: 200px; height: 34px">
         <p>This interactive map presents an overview of federally declared FEMA disasters at the county level, spanning from 2011 to 2023. Read more on the <a
             href="https://rebuildbydesign.org/atlas-of-disaster/" target="_blank">Atlas of Disaster</a> report by Rebuild by Design.</p>
             <h3>How To Use</h3>
@@ -58,15 +58,15 @@
         <p>This map is built on a foundation of research and data sources provided by U.S. Government:</p>
 <ul>
     <li><strong>FEMA Data:</strong> Disasters declared from 2011-2023, sourced from iParametric.</li>
-    <li><strong>Congressional Districts:</strong> Boundaries from USDOT BTS shapefiles. <a href="https://geodata.bts.gov/datasets/8ef43e55f7524f02a0ecb3dd415caf33_0/explore" target="_blank">Explore here</a>.</li>
-    <li><strong>Congress Names Database:</strong> Representative contact information from the United States - Congress-Legislators Github repository. <a href="https://github.com/unitedstates/congress-legislators?tab=readme-ov-file" target="_blank">Access here</a>.</li>
-    <li><strong>USA County Shapefiles 2020:</strong> Geographic boundaries from Esri's 2020 shapefiles. <a href="https://esri.maps.arcgis.com/home/item.html?id=14c5450526a8430298b2fa74da12c2f4" target="_blank">View here</a>.</li>
+    <li><strong>Congressional Districts:</strong> Boundaries from <a href="https://geodata.bts.gov/datasets/8ef43e55f7524f02a0ecb3dd415caf33_0/explore" target="_blank">USDOT BTS shapefiles</a>.</li>
+    <li><strong>Congress Names Database:</strong> Representative contact information from <a href="https://github.com/unitedstates/congress-legislators?tab=readme-ov-file" target="_blank">United States Github Repository</a>.</li>
+    <li><strong>USA County Shapefiles 2020:</strong> Geographic boundaries from <a href="https://esri.maps.arcgis.com/home/item.html?id=14c5450526a8430298b2fa74da12c2f4" target="_blank">ESRI's 2020 shapefiles</a>.</li>
 </ul>
     </div>
 
 
     <!-- LINK TO SCRIPTS.JS -->
-    <script src="https://j00by.github.io/atlas-of-disaster/scripts.js"></script>
+    <script src="/scripts.js"></script>
 
 </body>
 

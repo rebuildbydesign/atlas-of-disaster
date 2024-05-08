@@ -4,7 +4,7 @@ const initialZoom = window.innerWidth < 768 ? 3 : 4;  // Zoom level 3 for mobile
 
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v10',
+    style: 'mapbox://styles/j00by/clvx7jcp006zv01ph3miketyz',
     center: [-97.97919, 40.00215],
     zoom: initialZoom  // Use the dynamic zoom level based on device type
 });
@@ -27,7 +27,7 @@ map.on('load', function () {
     // Load the GeoJSON file for congressional districts with representative names
     map.addSource('districts', {
         type: 'geojson',
-        data: 'https://j00by.github.io/atlas-of-disaster/data/US_Districts.json'
+        data: '/data/US_Districts.json'
     });
 
     // Add a layer for districts
@@ -36,9 +36,8 @@ map.on('load', function () {
         'type': 'fill',
         'source': 'districts',
         'paint': {
-            'fill-color': '#e6e6e5',  // Existing fill color
-            'fill-opacity': 0.4,      // Existing opacity
-            'fill-outline-color': '#000000'  // Setting black as the border color
+            'fill-color': 'transparent', // No fill color
+            'fill-outline-color': '#000' // Black border color
         }
     });
 
@@ -49,15 +48,15 @@ map.on('load', function () {
         'source': 'districts',
         'layout': {},
         'paint': {
-            'line-color': '#791c41',  // Black border color
-            'line-width': 2  // Adjust line width here for thicker borders
+            'line-color': '#000', // Black border color
+            'line-width': 1 // Border width set to 1px
         }
     });
 
     // Load the GeoJSON file for counties and fema declaration count
     map.addSource('counties', {
         type: 'geojson',
-        data: 'https://j00by.github.io/atlas-of-disaster/data/US_Counties.json'
+        data: '/data/US_Counties.json'
     });
 
     // Add a layer for counties
@@ -69,26 +68,25 @@ map.on('load', function () {
             'fill-color': [
                 'match',
                 ['coalesce', ['get', 'FEMA_TOTAL_FEMA_DISASTERS'], 0], // Default to 0 if value is null
-                0, '#e6e6e5',
-                1, '#f8e0de',
-                2, '#f8e0de',
-                3, '#f5c6c2',
-                4, '#f5c6c2',
-                5, '#eea3b6',
-                6, '#eea3b6',
-                7, '#e770a1',
-                8, '#e770a1',
-                9, '#e770a1',
-                10, '#9c335d',
-                11, '#9c335d',
-                12, '#9c335d',
-                13, '#9c335d',
-                14, '#9c335d',
-                15, '#9c335d',
-                '#e6e6e5' // Default color used if none of the values match
+                0, '#ffffff',
+                1, '#fee5d9',
+                2, '#fee5d9',
+                3, '#fcae91',
+                4, '#fcae91',
+                5, '#fb6a4a',
+                6, '#fb6a4a',
+                7, '#de2d26',
+                8, '#de2d26',
+                9, '#de2d26',
+                10, '#a50f15',
+                11, '#a50f15',
+                12, '#a50f15',
+                13, '#a50f15',
+                14, '#a50f15',
+                15, '#a50f15',
+                '#ffffff' // Default color used if none of the values match
             ],
-            'fill-outline-color': '#ffffff',
-            'fill-opacity': 0.8
+            'fill-opacity': 1
         }
     });
     
@@ -114,17 +112,17 @@ map.on('load', function () {
                     <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
                         <p><strong>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</strong></p>
                         <p><strong>${props.NAMELSAD20}</strong></p>
-                        <p><a href="${props.WEBSITEURL}" target="_blank"><img src="https://j00by.github.io/atlas-of-disaster/images/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
-                           <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="https://j00by.github.io/atlas-of-disaster/images/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
-                           <a href="${props.TWITTER_URL}" target="_blank"><img src="https://j00by.github.io/atlas-of-disaster/images/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
-                           <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="https://j00by.github.io/atlas-of-disaster/images/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
+                        <p><a href="${props.WEBSITEURL}" target="_blank"><img src="/img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
+                           <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="/img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
+                           <a href="${props.TWITTER_URL}" target="_blank"><img src="/img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
+                           <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="/img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
                         </p>
                     </div>
                 `;
             } else if (feature.layer.id === 'counties-layer') {
                 const props = feature.properties;
                 featureHTML += `
-                <h4 style="border-bottom: 2px solid #e770a1; padding-bottom: 5px;">${props.NAME} County has been affected by a total of ${props.FEMA_TOTAL_FEMA_DISASTERS} disasters declared by FEMA.</h4>
+                <h4 style="border-bottom: 2px solid #a50f15; padding-bottom: 5px;">${props.NAME} County has been affected by a total of ${props.FEMA_TOTAL_FEMA_DISASTERS} disasters declared by FEMA.</h4>
                 `;
             }
         });
@@ -146,16 +144,6 @@ map.on('load', function () {
         });
     });
 
-
-    // Information box top left for methodology
-    document.getElementById('info-icon').addEventListener('click', function () {
-        var infoPanel = document.getElementById('info-panel');
-        if (infoPanel.style.display === 'none') {
-            infoPanel.style.display = 'block';
-        } else {
-            infoPanel.style.display = 'none';
-        }
-    });
 
 
 });

@@ -43,7 +43,7 @@ body {
     position: relative;
     width: 100%;
     height: 30px;
-    background: linear-gradient(to right, #e6e6e5, #f8e0de, #f5c6c2, #eea3b6, #e770a1, #9c335d);
+    background: linear-gradient(to right, #e6e6e5, #fee5d9, #fcae91, #fb6a4a, #de2d26, #a50f15);
     padding: 0 10px;
     box-sizing: border-box;
 }
@@ -85,13 +85,13 @@ body {
 
  /* Custom header and link colors */
 h3 {
-    color: #e770a1; 
+    color: #a50f15; 
 }
 
 a:link, a:visited {
-    color: #e770a1;
+    color: #a50f15;
 }
 
 a:hover, a:active {
-    color: #9c335d;
+    color: #a50f15;
 }
