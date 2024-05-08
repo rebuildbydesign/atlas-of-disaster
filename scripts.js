@@ -57,9 +57,9 @@ map.on('load', function () {
                 15, '#a50f15',
                 '#ffffff' // Default color used if none of the values match
             ],
-            'fill-opacity': 1
+            'fill-opacity': 0.9
         }
-    });
+    }, 'state-label');
     
 
 
@@ -88,12 +88,20 @@ map.on('load', function () {
         'layout': {},
         'paint': {
             'line-color': '#000', // Black border color
-            'line-width': 1 // Border width set to 1px
+            'line-width': 0.5
         }
-    });
+    }, 'state-label');
+
+
+  // Move the state labels layer to the top to ensure it is on top of all custom layers
+  const stateLabelLayerId = 'state-label';
+  if (map.getLayer(stateLabelLayerId)) {
+      map.moveLayer(stateLabelLayerId);
+  }
 
 
 
+  
 
     // When a user clicks on a district, show a popup with contact information
     // Initialize the popup globally if it needs to be accessed by different layers
