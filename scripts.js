@@ -172,5 +172,23 @@ map.on('load', function () {
     });
 
 
+    // Toggle counties layer 
+    document.getElementById('toggle-counties').addEventListener('click', function () {
+        // Get the current visibility state of the counties-layer
+        var visibility = map.getLayoutProperty('counties-layer', 'visibility');
+    
+        // Toggle the visibility based on the current state
+        if (visibility === 'visible' || visibility === undefined) {
+            // If visible, or undefined (not yet set), hide it
+            map.setLayoutProperty('counties-layer', 'visibility', 'none');
+            this.textContent = 'Show Counties Layer'; // Update button text to show
+        } else {
+            // If not visible, show it
+            map.setLayoutProperty('counties-layer', 'visibility', 'visible');
+            this.textContent = 'Hide Counties Layer'; // Update button text to hide
+        }
+    });
+    
+
 
 });

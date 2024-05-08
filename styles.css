@@ -13,6 +13,7 @@ body {
     width: 100%;
 }
 
+
 /* Atlas title top center */
 .css-atlas-title {
     position: absolute;
@@ -21,14 +22,33 @@ body {
     transform: translateX(-50%);
     z-index: 1000;
     pointer-events: none;
+    width: 80%;
+    /* Sets maximum width of the div to 80% of its parent */
+    max-width: 600px;
+    /* Logo will not stretch more than 600px */
 }
+
+.css-atlas-title img {
+    width: 100%;
+    /* Makes the image use all available space in the div */
+    height: auto;
+    /* Keeps the aspect ratio of the image */
+}
+
+@media (max-width: 480px) {
+    .css-atlas-title {
+        width: 95%;
+        /* Allows the logo to use more of the screen on small devices */
+    }
+}
+
 
 
 /* Legend bottom left */
 #legend {
     position: absolute;
     bottom: 20px;
-    right: 20px;
+    right: 10px;
     z-index: 999;
     padding: 10px;
     background: rgba(255, 255, 255, 0.8);
@@ -74,24 +94,38 @@ body {
     padding: 20px;
     border-radius: 8px;
     max-width: 400px;
-    max-height: 800px; /* Maximum height of the panel */
+    max-height: 800px;
+    /* Maximum height of the panel */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     font-family: Arial, sans-serif;
-    font-size: calc(10px + 0.5vw); /* Responsive font size */
-    overflow-y: auto; /* Enables vertical scrolling if content is too tall */
+    font-size: calc(10px + 0.5vw);
+    /* Responsive font size */
+    overflow-y: auto;
+    /* Enables vertical scrolling if content is too tall */
 }
 
 
- /* Custom header and link colors */
+/* Custom header and link colors */
 h3 {
-    color: #a50f15; 
-}
-
-a:link, a:visited {
     color: #a50f15;
 }
 
-a:hover, a:active {
+a:link,
+a:visited {
     color: #a50f15;
+}
+
+a:hover,
+a:active {
+    color: #a50f15;
+}
+
+
+/* Toggle countie layer */
+#toggle-counties {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: #de2d26;
 }
