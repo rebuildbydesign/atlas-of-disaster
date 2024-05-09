@@ -230,11 +230,11 @@ map.on('load', function () {
         if (visibility === 'visible' || visibility === undefined) {
             // If visible, or undefined (not yet set), hide it
             map.setLayoutProperty('counties-layer', 'visibility', 'none');
-            this.textContent = 'Show Counties Layer'; // Update button text to show
+            this.textContent = 'Show Disaster Data'; // Update button text to show
         } else {
             // If not visible, show it
             map.setLayoutProperty('counties-layer', 'visibility', 'visible');
-            this.textContent = 'Hide Counties Layer'; // Update button text to hide
+            this.textContent = 'Hide Disaster Data'; // Update button text to hide
         }
     });
 
