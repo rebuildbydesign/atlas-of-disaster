@@ -71,7 +71,7 @@ map.on('load', function () {
                 15, '#a50f15',
                 '#ffffff' // Default color used if none of the values match
             ],
-            'fill-opacity': 0.9
+            'fill-opacity': 0.8
         }
     }, 'state-label');
 
@@ -135,10 +135,7 @@ map.on('load', function () {
 
 
 
-
-
-
-
+    
 
     // When a user clicks on a district, show a popup with contact information
     // Initialize the popup globally if it needs to be accessed by different layers
@@ -260,6 +257,44 @@ map.on('load', function () {
         }
     });
 
+
+// Initialize the geocoder
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    marker: false, // Do not use the default marker
+    placeholder: 'Enter an address to explore', // Placeholder text for the input field
+    zoom: 10, // Zoom level when address is found
+    bbox: [-124.848974, 24.396308, -66.93457, 49.384358] // Optional: Limit search to the United States
+});
+
+// Add the geocoder to the map
+map.addControl(geocoder, 'bottom-left');
+
+
+
+
+
+
+// Handle the result event from the geocoder
+geocoder.on('result', function(e) {
+    var lngLat = e.result.geometry.coordinates;
+
+    window.setTimeout(function() {
+        // Close any existing popup
+        if (popup.isOpen()) {
+            popup.remove();
+        }
+
+        var features = map.queryRenderedFeatures(map.project(lngLat), { layers: ['districts-layer', 'counties-layer'] });
+        var featureHTML = ''; // Logic to generate HTML based on features
+
+        // Set new content and open the popup at the searched location
+        popup.setLngLat(lngLat)
+             .setHTML(featureHTML)
+             .addTo(map);
+    }, 300);
+});
 
 
 
