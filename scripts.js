@@ -83,6 +83,7 @@ map.on('load', function () {
         data: 'data/US_Districts.json'
     });
 
+    
     // Add a layer for districts
     map.addLayer({
         'id': 'districts-layer',
@@ -93,6 +94,7 @@ map.on('load', function () {
             'fill-outline-color': '#000' // Black border color
         }
     });
+    
 
     // Line layer specifically for district borders
     map.addLayer({
@@ -106,12 +108,32 @@ map.on('load', function () {
         }
     }, 'state-label');
 
+    map.addSource('state-senators', {
+        type: 'geojson',
+        data: 'data/state-senators.json'
+    });
+    
+    // IN CASE I WANT TO SHOW THIS STATE BOUNDARIES IN THE FUTURE
+    // map.addLayer({
+    //     'id': 'senators-layer',
+    //     'type': 'circle',
+    //     'source': 'state-senators',
+    //     'paint': {
+    //         'circle-radius': 5,
+    //         'circle-color': '#007cbf'
+    //     }
+    // });
+    
 
-    // Move the state labels layer to the top to ensure it is on top of all custom layers
+
+
+    // MAPBOX STUDIO EDITING - Move the state labels layer to the top to ensure it is on top of all custom layers
     const stateLabelLayerId = 'state-label';
     if (map.getLayer(stateLabelLayerId)) {
         map.moveLayer(stateLabelLayerId);
     }
+
+
 
 
 
@@ -155,16 +177,19 @@ map.on('load', function () {
         var seenDistricts = {}; // Object to track seen district entries
         var seenCounties = {}; // Object to track seen county entries
 
+        // DISTRICTS-LAYER = CONGRESSIONAL 118TH NAMES + CONTACT INFO
         features.forEach(function (feature) {
             if (feature.layer.id === 'districts-layer') {
                 const props = feature.properties;
                 const districtId = props.FIRSTNAME + props.LASTNAME; // Unique identifier for district entries
+                // congress photourl code here <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: block; align: left;">
+
+                // NAMELSAD 20 = CONGRESSIONAL DISTRICT #
                 if (!seenDistricts[districtId]) {
                     seenDistricts[districtId] = true;
                     districtInfo += `
                         <div style="min-width: 200px">
                         <p><strong>${props.NAMELSAD20}</strong></p>
-                        <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: block; align: left;">
                         <p style="font-weight: bold; color: #a50f15">Congress Representative</p>
                         <p>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</p> 
                             <p><a href="${props.WEBSITEURL}" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
@@ -172,14 +197,6 @@ map.on('load', function () {
                                <a href="${props.TWITTER_URL}" target="_blank"><img src="img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
                                <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
                             </p>
-                            <hr style="height: 2px; background-color: #fb6a4a; border: none;">
-                            <p style="font-weight: bold; color: #a50f15">State Senator</p>
-                            <p>Name Here (Party)</p>
-                            <p><a href="#" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
-                            <a href="#" target="_blank"><img src="img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
-                            <a href="#" target="_blank"><img src="img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
-                            <a href="#" target="_blank"><img src="img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
-                         </p>
                         </div>
                     `;
                 }
