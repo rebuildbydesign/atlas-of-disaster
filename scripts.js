@@ -83,7 +83,7 @@ map.on('load', function () {
         data: 'data/US_Districts.json'
     });
 
-    
+
     // Add a layer for districts
     map.addLayer({
         'id': 'districts-layer',
@@ -94,7 +94,7 @@ map.on('load', function () {
             'fill-outline-color': '#000' // Black border color
         }
     });
-    
+
 
     // Line layer specifically for district borders
     map.addLayer({
@@ -112,7 +112,7 @@ map.on('load', function () {
         type: 'geojson',
         data: 'data/state-senators.json'
     });
-    
+
     // IN CASE I WANT TO SHOW THIS STATE BOUNDARIES IN THE FUTURE
     // map.addLayer({
     //     'id': 'senators-layer',
@@ -123,7 +123,7 @@ map.on('load', function () {
     //         'circle-color': '#007cbf'
     //     }
     // });
-    
+
 
 
 
@@ -177,7 +177,7 @@ map.on('load', function () {
         var seenDistricts = {}; // Object to track seen district entries
         var seenCounties = {}; // Object to track seen county entries
 
-        // DISTRICTS-LAYER = CONGRESSIONAL 118TH NAMES + CONTACT INFO
+        // DISTRICTS-LAYER = CONGRESSIONAL 118TH NAMES + CONTACT INFO + SENATE + ATLAS
         features.forEach(function (feature) {
             if (feature.layer.id === 'districts-layer') {
                 const props = feature.properties;
@@ -189,14 +189,19 @@ map.on('load', function () {
                     seenDistricts[districtId] = true;
                     districtInfo += `
                         <div style="min-width: 200px">
-                        <p><strong>${props.NAMELSAD20}</strong></p>
-                        <p style="font-weight: bold; color: #a50f15">Congress Representative</p>
-                        <p>${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})</p> 
+                        <p style="font-weight: bold; color: #fff; background-color: #fb6a4a; padding: 3px;">${props.NAMELSAD20}</p>
+                        <img src="${props.PHOTOURL}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: block; align: left;"><br>
+                        ${props.FIRSTNAME} ${props.LASTNAME} (${props.PARTY})
                             <p><a href="${props.WEBSITEURL}" target="_blank"><img src="img/id-card.svg" alt="Website" style="width: 24px; height: 24px;"></a>
                                <a href="${props.FACE_BOOK_URL}" target="_blank"><img src="img/facebook.svg" alt="Facebook" style="width: 24px; height: 24px;"></a>
                                <a href="${props.TWITTER_URL}" target="_blank"><img src="img/twitter.svg" alt="Twitter" style="width: 24px; height: 24px;"></a>
                                <a href="${props.INSTAGRAM_URL}" target="_blank"><img src="img/instagram.svg" alt="Instagram" style="width: 24px; height: 24px;"></a>
                             </p>
+                             <p style="font-weight: bold; color: #fff; background-color: #fb6a4a; padding: 3px;">Senators</p>
+                            <p>1) <a href="${props.SENATOR1_URL}" target="_blank">${props.SENATOR1}</a><br>
+                           2) <a href="${props.SENATOR2_URL}" target="_blank">${props.SENATOR2}</a><br>
+                           <hr style="height: 2px; background-color: #000; border: none;">
+                            <p>Read more about how this state is experiencing climate change in the <a href="${props.ATLAS_URL}" target="_blank">Atlas of Disaster</a> report by Rebuild by Design.</p>
                         </div>
                     `;
                 }
@@ -207,8 +212,8 @@ map.on('load', function () {
                 if (!seenCounties[countyId]) {
                     seenCounties[countyId] = true;
                     countyInfo += `
-                        <h3 style="border-bottom: 2px solid #fb6a4a; padding-bottom: 5px;">${props.NAME} County, ${stateName}</h4>
-                        <p><strong># of Federally Declared Disasters:</strong> ${props.FEMA_TOTAL_FEMA_DISASTERS}
+                        <h2 style="border-bottom: 2px solid #000; padding-bottom: 5px;">${props.NAME} County, ${stateName}</h2>
+                        <p style="font-weight: bold; color: #fff; background-color: #a50f15; padding: 3px;">${props.FEMA_TOTAL_FEMA_DISASTERS} Federal Declarations</p>
                     `;
                 }
             }
