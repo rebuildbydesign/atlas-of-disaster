@@ -263,8 +263,8 @@ var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl,
     marker: false, // Do not use the default marker
-    placeholder: 'Enter an address to explore', // Placeholder text for the input field
-    zoom: 10, // Zoom level when address is found
+    placeholder: 'Search Address', // Placeholder text for the input field
+    zoom: 9, // Zoom level when address is found
     bbox: [-124.848974, 24.396308, -66.93457, 49.384358] // Optional: Limit search to the United States
 });
 
