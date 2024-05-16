@@ -139,23 +139,4 @@ a:active {
         width: 90%; /* More screen usage */
     }
 
-    /* Legend responsiveness */
-    #legend {
-        bottom: 10px; /* Closer to the bottom edge */
-        right: 10px; /* More padding on the right */
-        width: 60%; /* More width for better readability */
-        font-size: 12px; /* Slightly smaller text */
-    }
-
-    /* Toggle button for counties layer */
-    #toggle-counties {
-        position: absolute; /* To ensure it doesn't overlap other elements */
-        top: 50px; /* Position below the atlas title */
-        left: 10px; /* Consistent padding from the left edge */
-        width: 60%; /* Full width minus padding */
-        padding: 8px; /* Added padding for better tap target */
-        background: rgba(255, 255, 255, 0.8); /* Background for visibility */
-        border-radius: 5px; /* Rounded corners */
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    }
 }
